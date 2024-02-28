@@ -150,7 +150,5 @@ the expression matrix will be generated in `seg_dir` as `expression_matrix.csv`
 ## Cell typing and related analysis
 
 
-
-
 ## Subcellular analysis
 
