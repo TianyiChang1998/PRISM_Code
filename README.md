@@ -35,7 +35,26 @@ Output root
 ├─...
 ├─RUN_IDN_processed(automate create)
 ```
-Your raw data should be in folder RUN_ID.
+Your raw data should be in folder RUN_ID. 
+
+Important results of each step are stored in corresponding directory under RUN_ID_processed. In this example, steps' dir are defined as:
+
+```shell
+# In image process
+dest_dir = BASE_DIR / f'{RUN_ID}_processed' # processed data
+aif_dir = dest_dir / 'focal_stacked'        # scan_fstack.py
+sdc_dir = dest_dir / 'background_corrected' # image_process_after_stack.py
+rgs_dir = dest_dir / 'registered'           # image_process_after_stack.py
+stc_dir = dest_dir / 'stitched'             # image_process_after_stack.py
+rsz_dir = dest_dir / 'resized'              # image_process_after_stack.py
+
+# In following analysis
+src_dir = BASE_DIR / f'{RUN_ID}_processed'  # processed data
+stc_dir = src_dir / 'stitched'              # image_process_after_stack.py
+read_dir = src_dir / 'readout'              # multi_channel_readout.py
+seg_dir = src_dir / 'segmented'             # segment2D.py or segment3D.py or expression_matrix.py
+
+``` 
 
 # Quick start
 
@@ -57,51 +76,80 @@ And **pip setuptools** needs a correct version.
 
 For MATLAB R2021b: `pip install --upgrade pip setuptools==57.5.0`
 
-**Remind!** There are lots of paths or directories need to be edited in files mentioned below.
-
 
 ## Probe Design
-This step is not necessary all the time because you can desigh the probe yourself or contact us for help. But if you want to design the probe easily by yourself, see: https://github.com/Tangmc-kawa/probe_designer
+This step is not always necessary because you can design the probe with specific binding sites, barcodes and corresponding fluorophore probes manually or contact us for help. But if you want to design the probe easily or in bulk, see: https://github.com/Tangmc-kawa/probe_designer.
 
+***Remind!** Lots of paths or directories need editing in files mentioned below.*
+ --- 
 
 ## Image Process 2D
 Step 1 and Step 2 is used to generate a complete image for each channel used in experiment. If you have other methods to per form this image process, store the name of each channel's image as `cyc_1_channel.tif` 
+
+
 ### Step 1: Scan_fstack
-Edit the directory in python file `scan_fstack.py` as the directory you wish. Run the code: 
+Edit the directory in python file `scan_fstack.py` and run the code: 
+
 ```shell
-python scan_fstack.py Raw_data_root
+python image_process/scan_fstack.py Raw_data_root
 ```
+
 **Remark**: This step is aimed to process raw images captured in small field and multi channel. you can use it to process your own experiment data. We have provided a preprocessed example data for Step 2 and pipeline after, which is located at `./dataset/processed/_example_dataset_processed`.  You can change the RUN_ID in each script to `_example_dataset` and continue the following steps.
 
+
 ### Step 2: Image_process
-Edit the directory in python file `image_process_after_stack.py` the same as the directory before. Run the code: 
+Edit the directory in python file `image_process/image_process_after_stack.py` as the same, and run the code: 
 ```shell
-python image_proess_after_stack.py
+python image_process/image_proess_after_stack.py
 ```
-**Remark**: This step includes register the subimages, correct the background and stitch them to a whole image, Results will be stitched n (n is the number of channels you use) big images in `RUN_IDx_processed/stitched/`, which will be used in next part.
+
+**Remark**: This step includes register the subimages, correct the background and stitch them to a whole image. Results will be stitched n (n is the number of channels you use) big images in `stc_dir`, which will be used in next part.
+
 
 ### Step 3: Multi_channel_readout
-Edit the directory in python file `multi_channel_readout.py` the same as the directory before. Run the code: 
+Edit the directory in python file `image_process/multi_channel_readout.py` as the same, and run the code: 
 ```shell
-python multi_channel_readout.py
+python image_process/multi_channel_readout.py
 ```
-**Remark**: Using big images generated in the previous step. Signal spots and their intensity can be extract using `multi_channel_readout.py`. It will generate two csv files named `intensity_all.csv` `intensity_all_deduplicated.csv` in the directory `RUN_IDx_processed/readout/`.
+
+**Remark**: This step requires stitched big images generated in the previous step. Signal spots and their intensity can be extract using `image_process/multi_channel_readout.py`. It will generate two csv files named `intensity_all.csv` `intensity_all_deduplicated.csv` in the directory `RUN_IDx_processed/readout/`.
 
 ## Image Process 3D
 
 
 ## Gene Calling
-Edit the directory in `Gene_calling.py` and run it. A csv file containing spots coordinate and gene name will be generated, named `output_root/RUN_IDx_processed/readout/mapped_genes.csv`.
+Edit the directory in python file `gene_calling/gene_calling_GUI.py`, run the code:  
+```shell
+python gene_calling/gene_calling_GUI.py
+```
+and follow the indications of each step. The result should be at `read_dir/mapped_genes.csv` as default, and you can choose another directory in the GUI.
+
+**Remark**: Gene calling for PRISM is performed by a Gaussian Mixture, mannual select by masks and evaluation of the confidence of each spot. It's expected to run on a GUI because some steps need human knowledge of the experiments like how the chemical environment or FRET would affect the fluorophores. You can also use `gene_calling/PRISM_gene_calling_GMM.ipynb` for customization or use `gene_calling/gene_calling_manual.ipynb` to set the threshold for each gene manually. 
+
+For more detail, see https://github.com/Tangmc-kawa/PRISM_gene_calling.
+
 
 ## Cell Segmentation
-Edit the directory in `segment.py` and run it. This code will segment cell nucleus according to DAPI channel. A csv file containing the coordinate of nucleus centroid will be generated named `output_root/whatever_name_processed/segmented/centroids_all.csv`.
+Edit the directory in python file `cell_segmentation/segment2D.py` or `cell_segmentation/segment3D.py` and run:
+```shell
+python cell_segmentation/segment2D.py
+```
+This code will segment cell nucleus according to DAPI channel. A csv file containing the coordinate of nucleus centroid will be generated in`seg_dir` as `centroids_all.csv`.
 
-## Expression Matrix
-Edit the directory and run the jupyter notebook file `integrated_analysis_SPRINTseq.ipynb`, important post processing results will be shown inside the jupyter.
+Edit the directory in python file `gene_calling/expression_matrix.py`, and run:
+```shell
+python cell_segmentation/expression_matrix.py
+```
+the expression matrix will be generated in `seg_dir` as `expression_matrix.csv`
 
-The provided dataset is just an example data, so we provided another true experimental data for post-analysis in folder `example_dataset_whole_brain`. Run `merge.py` to build dataset from splited dataset, and replace `mapped_genes.csv` and `centroids_all.csv` mentioned above with file in this folder to use this dataset for Matrix Analysis.
+**Remark**: 
+- `Segmentation3D.py` needs stardist environment as it use trained network to predict the shape and centroid of nucleus in 3D. For more information, see: https://github.com/stardist/stardist.
+- Our strategy to generate expression matris in general assign rna to its nearest centroid of cell nucleus (predicted by dapi) so it requires `centroids` of cell nucleus and `mapped genes` generated in previous steps. If you have other strategies which performed better in your data, you can replace this step with it.
+
 
 ## Cell typing and related analysis
+
+
 
 
 ## Subcellular analysis
