@@ -1,0 +1,5 @@
+dataset/*
+__pycache__/
+*.pyc
+# !dataset/raw_archive/_example_dataset
+# !dataset/processed/_example_dataset
