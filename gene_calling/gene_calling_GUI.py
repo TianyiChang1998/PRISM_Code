@@ -300,7 +300,7 @@ while True:
 
         if values['wkdir'] != '':
             workdir = values['wkdir']
-            window['-SAVE_DF-'].update(values=os.path.join(workdir, 'intensity_labeled.csv'))
+            window['-SAVE_DF-'].update(os.path.join(workdir, 'intensity_labeled.csv'))
         workdir, figure_dir = dir_initialization(workdir)
 
         if event == 'upload_csv':
