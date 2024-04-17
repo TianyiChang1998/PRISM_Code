@@ -76,10 +76,8 @@ def read_meta(in_dir):
 
     """
     meta_path = list(Path(in_dir).glob('*global*.txt'))[0]
-    raw = ['\n'.join(line.strip(';').split('; '))
-           for line in open(meta_path).read().strip('\n').split('\n')]
-    cols, vals = zip(*[line.split(': ')
-                     for line in '\n'.join(raw).split('\n')])
+    raw = ['\n'.join(line.strip(';').split('; ')) for line in open(meta_path).read().strip('\n').split('\n')]
+    cols, vals = zip(*[line.split(': ') for line in '\n'.join(raw).split('\n')])
     series = pd.Series(vals, cols)
     series.index = [series.groupby(level=0).cumcount(), series.index]
     meta_df = series.unstack()

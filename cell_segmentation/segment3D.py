@@ -66,5 +66,4 @@ def segment3D(model, dapi_name, stc_dir, seg_dir):
 
 
 if __name__ == '__main__':
-    segment3D(model=model, dapi_name=dapi_name,
-              stc_dir=stc_dir, seg_dir=seg_dir)
+    segment3D(model=model, dapi_name=dapi_name, stc_dir=stc_dir, seg_dir=seg_dir)

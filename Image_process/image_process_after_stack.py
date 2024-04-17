@@ -80,16 +80,13 @@ def main():
     ref_dir = sdc_dir / f'cyc_{ref_cyc}_{ref_chn}'
     im_names = get_tif_list(ref_dir)
 
-    meta_df = register_meta(
-        str(sdc_dir), str(rgs_dir), ['cy3', 'cy5'], im_names, ref_cyc, ref_chn)
+    meta_df = register_meta(str(sdc_dir), str(rgs_dir), ['cy3', 'cy5'], im_names, ref_cyc, ref_chn)
     meta_df.to_csv(rgs_dir / 'integer_offsets.csv')
     # register_manual(rgs_dir/'cyc_1_cy3', sdc_dir/'cyc_1_cy5', rgs_dir/'cyc_1_cy5') #
-    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir /
-                    'cyc_1_FAM', rgs_dir/'cyc_1_FAM')
-    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir /
-                    'cyc_1_TxRed', rgs_dir/'cyc_1_TxRed')
-    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir/'cyc_1_DAPI',
-                    rgs_dir/'cyc_1_DAPI')  # 0103 revised! Please remove this !
+    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir / 'cyc_1_FAM', rgs_dir/'cyc_1_FAM')
+    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir / 'cyc_1_TxRed', rgs_dir/'cyc_1_TxRed')
+    register_manual(rgs_dir/'cyc_1_cy3', sdc_dir/'cyc_1_DAPI', rgs_dir/'cyc_1_DAPI')  # 0103 revised! Please remove this !
+    
     patch_tiles(rgs_dir/f'cyc_{ref_cyc}_{ref_chn}', 34*20)
 
     resize_batch(rgs_dir, rsz_dir)
@@ -97,9 +94,11 @@ def main():
     stc_dir.mkdir(exist_ok=True)
     template_stitch(rsz_dir/f'cyc_{ref_cyc}_{ref_chn_1}', stc_dir, 34, 20)
 
-    offset_df = pd.read_csv(rgs_dir / 'integer_offsets.csv')
-    offset_df = offset_df.set_index('Unnamed: 0')
-    offset_df.index.name = None
+    offset_df = pd.read_csv(rgs_dir / 'integer_offsets.csv', index_col=0)
+    # offset_df = offset_df.set_index('Unnamed: 0')
+    # offset_df.index.name = None
+
+
     stitch_offset(rgs_dir, stc_dir, offset_df)
 
     # register_manual(rgs_dir/'cyc_1_cy3', sdc_dir/'cyc_1_FAM', rgs_dir/'cyc_1_FAM')
@@ -135,8 +134,7 @@ def stitch_test():
     offset_df = pd.read_csv(rgs_dir / 'integer_offsets.csv')
     offset_df = offset_df.set_index('Unnamed: 0')
     offset_df.index.name = None
-    register_manual(rgs_dir/'cyc_10_DAPI', sdc_dir /
-                    'cyc_11_DAPI', rgs_dir/'cyc_11_DAPI')
+    register_manual(rgs_dir/'cyc_10_DAPI', sdc_dir / 'cyc_11_DAPI', rgs_dir/'cyc_11_DAPI')
     stitch_manual(rgs_dir/'cyc_11_DAPI', stc_dir, offset_df, 10, bleed=30)
     im = imread(stc_dir/'cyc_11_DAPI.tif')
     im_crop = im[10000:20000, 10000:20000]

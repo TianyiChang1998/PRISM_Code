@@ -8,8 +8,8 @@ import matlab.engine
 from tqdm import tqdm
 
 
-BASE_DIRECTORY = "/PRISM_code/dataset/raw_images"
-BASE_DEST_DIRECTORY = "/PRISM_code/dataset/processed"
+BASE_DIRECTORY = r"E:\TMC\raw_images"
+BASE_DEST_DIRECTORY = r"E:\TMC\processed_images"
 CHANNELS = ["cy3", "cy5", "FAM", "DAPI", "TxRed"]
 # CHANNELS = ['cy3','cy5']
 # CHANNELS = ['FAM','TxRed','DAPI']
