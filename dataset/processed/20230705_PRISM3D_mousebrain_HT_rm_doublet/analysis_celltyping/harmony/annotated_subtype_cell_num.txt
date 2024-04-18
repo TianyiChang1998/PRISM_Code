@@ -1,0 +1,17 @@
+Ex-1: 801
+Ex-2-Nr4a2+: 16
+Ex-3-Rorb+: 396
+Ex-4-Pmch+: 447
+Ex-5-Prox1+: 706
+Ex-6-Rasgrf2+: 548
+Ex-other: 1423
+In-Lamp5: 694
+In-Pvalb: 306
+In-Sst: 607
+In-Vip: 282
+In-other: 839
+Glial-Astrocyte: 1524
+Glial-Microglia: 527
+Glial-Oligodendrocyte: 722
+total_exempt_other: 9838
+total_num: 12540

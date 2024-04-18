@@ -78,6 +78,8 @@ Some raw data for our articles are uploaded as:
 
 - HCC2D: `spatial_transcriptome_raw_data\20230523_HCC_PRISM_probe_refined`
 
+Processed data are provided in corresponding folders, run `merge_csv.ipynb` to merge too large files(larger than 100MB so that can't be uploaded directly to GitHub).
+
 For more raw data, contact us from huanglab111@gmail.com.
 
 # Pipeline

@@ -1,0 +1,14 @@
+Ex-2or3: 528
+Ex-4: 436
+Ex-5: 428
+Ex-6a: 503
+Ex-6b: 302
+In-Sst: 298
+In-Pvalb: 347
+In-Vip: 279
+In-Lamp5: 224
+Glial-Astrocyte: 744
+Glial-Microglia: 445
+Glial-Oligodendrocyte: 258
+total_exempt_other: 4792
+total_num: 7044

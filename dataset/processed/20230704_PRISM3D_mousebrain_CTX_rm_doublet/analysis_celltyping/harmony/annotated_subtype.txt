@@ -1,0 +1,12 @@
+Ex-2or3
+Ex-4
+Ex-5
+Ex-6a
+Ex-6b
+In-Sst
+In-Pvalb
+In-Vip
+In-Lamp5
+Glial-Astrocyte
+Glial-Microglia
+Glial-Oligodendrocyte

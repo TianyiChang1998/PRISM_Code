@@ -1,0 +1,5 @@
+Ex: 11609
+In: 4670
+Glial: 4442
+total_exempt_other: 20721
+total_num: 26003

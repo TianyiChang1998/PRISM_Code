@@ -1,0 +1,9 @@
+Ex-thalamus: 2429
+In-Pvalb: 707
+In-Sst: 433
+In-Vip: 351
+Glial-Astrocyte: 657
+Glial-Microglia: 205
+Glial-Oligodendrocyte: 588
+total_exempt_other: 5370
+total_num: 6720

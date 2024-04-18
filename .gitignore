@@ -5,6 +5,7 @@ __pycache__/
 # test file
 *test*
 git-batch-upload.bat
+split_csv.ipynb
 
 # datasets
 dataset/*
