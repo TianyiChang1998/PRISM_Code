@@ -1,5 +1,110 @@
-dataset/*
+# pycache
 __pycache__/
 *.pyc
-# !dataset/raw_archive/_example_dataset
-# !dataset/processed/_example_dataset
+
+# test file
+*test*
+git-batch-upload.bat
+
+# datasets
+dataset/*
+
+# raw images
+!dataset/processed/
+dataset/processed/*
+
+### reference sc dataset
+!dataset/dataset_sc_rnaseq
+dataset/dataset_sc_rnaseq/*
+
+## 2D mouse embryo
+!dataset/processed/PRISM2D_MouseEmbryo/
+
+## 2D mouse brain
+!dataset/processed/PRISM2D_mousebrain/
+
+## 2D HCC
+!dataset/processed/PRISM2D_HCC/
+
+## Quasi-3D HCC
+!dataset/processed/PRISM_HCC_of_20_slides/
+
+## 3D mouse brain 
+### CTX
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/*
+#### code
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb
+#### readout
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/readout/
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/readout/*
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/readout/mapped_genes_processed.csv
+#### segment
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/segmented/
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/segmented/*
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/segmented/dapi_predict.csv
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/segmented/expression_matrix.csv
+#### celltyping
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/*
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/cell_info.csv
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/harmony
+#### single cell
+!dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/sc_process
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/analysis_celltyping/sc_process/*
+
+### HT
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/
+dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/*
+#### code
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb
+#### readout
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/readout/
+dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/readout/*
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/readout/mapped_genes_processed.csv
+#### segment
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/segmented/
+dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/segmented/*
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/segmented/dapi_predict.csv
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/segmented/expression_matrix.csv
+#### celltyping
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/analysis_celltyping/
+dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/analysis_celltyping/*
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/analysis_celltyping/adata.h5ad
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/analysis_celltyping/cell_info.csv
+!dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/analysis_celltyping/harmony
+
+### TH
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/
+dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/*
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb
+#### readout
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/readout/
+dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/readout/*
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/readout/mapped_genes_processed.csv
+#### segment
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/segmented/
+dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/segmented/*
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/segmented/dapi_predict.csv
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/segmented/expression_matrix.csv
+#### celltyping
+!dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/analysis_celltyping/
+
+### HP
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/
+dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/*
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb
+#### readout
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/readout/
+dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/readout/*
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/readout/mapped_genes_processed.csv
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/readout/intensity_all.csv
+#### segment
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/segmented/
+dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/segmented/*
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/segmented/dapi_predict.csv
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/segmented/expression_matrix.csv
+#### celltyping
+!dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/analysis_celltyping/
+dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/analysis_celltyping/.old*
+
