@@ -1,0 +1,15 @@
+Ex-1
+Ex-2-Nr4a2+
+Ex-3-Rorb+
+Ex-4-Pmch+
+Ex-5-Prox1+
+Ex-6-Rasgrf2+
+Ex-other
+In-Lamp5
+In-Pvalb
+In-Sst
+In-Vip
+In-other
+Glial-Astrocyte
+Glial-Microglia
+Glial-Oligodendrocyte
