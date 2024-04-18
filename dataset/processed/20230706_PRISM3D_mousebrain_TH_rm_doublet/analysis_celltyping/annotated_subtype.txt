@@ -1,0 +1,7 @@
+Ex-thalamus
+In-Pvalb
+In-Sst
+In-Vip
+Glial-Astrocyte
+Glial-Microglia
+Glial-Oligodendrocyte
