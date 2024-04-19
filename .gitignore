@@ -109,3 +109,14 @@ dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/segmented/*
 !dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/analysis_celltyping/
 dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/analysis_celltyping/.old*
 
+dataset/processed/PRISM2D_HCC/readout/intensity.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/1-1/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/1-16/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/1-21/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/1-6/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/2-11/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/2-16/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E13.5/2-6/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E14.5/1-17/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E14.5/1-18/visualization/rna_labeled.csv
+dataset/processed/PRISM2D_MouseEmbryo/E14.5/1-22/visualization/rna_labeled.csv
