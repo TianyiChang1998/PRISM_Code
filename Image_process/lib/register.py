@@ -115,8 +115,7 @@ def register_meta(in_dir, out_dir, chns, names, ref_cyc=1, ref_chn='cy3'):
     alt_chns = [c for c in chns if c != ref_chn]
     cyc_chn_list = Path(in_dir).glob('cyc_*_*')
     cyc_chn_list = [c for c in cyc_chn_list if re.match(pattern, c.name)]
-    src_list = [c for c in cyc_chn_list if c.name.split('_')[
-        1] == str(ref_cyc)]
+    src_list = [c for c in cyc_chn_list if c.name.split('_')[1] == str(ref_cyc)]
     for d in tqdm(src_list, desc='Copying reference'):
         if not (Path(out_dir)/d.name).is_dir():
             shutil.copytree(d, Path(out_dir)/d.name)
@@ -138,8 +137,7 @@ def register_meta(in_dir, out_dir, chns, names, ref_cyc=1, ref_chn='cy3'):
                 offsets.append('0 0')
                 continue
             shift_res = shift - np.round(shift)
-            offsets.append(np.array2string(
-                np.round(shift).astype(int)).strip('[ ]'))
+            offsets.append(np.array2string(np.round(shift).astype(int)).strip('[ ]'))
             out_im = register(src_im, shift_res)
             imsave(dest_dir/name, out_im, check_contrast=False)
             for chn in alt_chns:

@@ -15,6 +15,7 @@ scaleMaxRatio: 0.5
 
 # FeatureExtractSettings
 featureExtract: DoG # 'none', 'DoG', 'LoG', 'DoGAndLoG'
+enhance: True
 filterLo: 2
 filterHi: 3
 saveSmoothed: False
