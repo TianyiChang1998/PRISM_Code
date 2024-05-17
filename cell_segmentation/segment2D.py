@@ -19,8 +19,13 @@ MIN_REGION = 400
 MIN_CELL_SIZE = 400
 BLOCK_SIZE = 20000
 BLOCK_STRIDE = BLOCK_SIZE - 100
-PROCESSED_BASE_DIR = Path('/PRISM_code/dataset/processed')
 
+BASE_DIR = Path('/mnt/data/local_processed_data')
+RUN_ID = '20240403_FFPE_trial6_condition2'
+src_dir = BASE_DIR / f'{RUN_ID}_processed'
+stc_dir = src_dir / 'stitched'
+read_dir = src_dir / 'readout'
+seg_dir = src_dir / 'segmented'
 
 def segment_cell(im, offset_value=255, BLOCK_SIZE=251):
     threshold_im = threshold_local(im, BLOCK_SIZE, offset=-offset_value)
@@ -117,11 +122,11 @@ def combine_centroids(in_dir):
 
 
 def segment_pipeline(run_id):
-    base_dir = PROCESSED_BASE_DIR / f'{run_id}_processed'
+    base_dir = BASE_DIR / f'{run_id}_processed'
     stc_dir = base_dir / 'stitched'
     seg_dir = base_dir / 'segmented'
     seg_dir.mkdir(exist_ok=True)
-    cell_im_name = 'cyc_10_DAPI.tif'
+    cell_im_name = 'cyc_1_DAPI.tif'
     im = imread(stc_dir/cell_im_name)
     block_segment(im, seg_dir)
     combine_centroids(seg_dir)
@@ -130,4 +135,4 @@ def segment_pipeline(run_id):
 # if __name__ == '__main__':
 #    pass
 
-segment_pipeline('20221207_OSCC_3_thermo')
+segment_pipeline(RUN_ID)

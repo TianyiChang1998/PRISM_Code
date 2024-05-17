@@ -8,8 +8,8 @@ import matlab.engine
 from tqdm import tqdm
 
 
-BASE_DIRECTORY = r"E:\TMC\raw_images"
-BASE_DEST_DIRECTORY = r"E:\TMC\processed_images"
+BASE_DIRECTORY = r"F:\spatial_data\raw"
+BASE_DEST_DIRECTORY = r"F:\spatial_data\processed"
 CHANNELS = ["cy3", "cy5", "FAM", "DAPI", "TxRed"]
 # CHANNELS = ['cy3','cy5']
 # CHANNELS = ['FAM','TxRed','DAPI']
