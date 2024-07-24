@@ -2,13 +2,41 @@
 
 PRISM (**P**rofiling of **R**NA **I**n-situ through **S**ingle-round i**M**aging) is an innovative method that employs an radius vector code to distinguish a wide array of RNA transcripts in large-scale tissues with sub-micron resolution through a single staining and imaging cycle, which make it fast and free of prblems of traditional methods like shifting and alignment.
 
-For more information, please read the article.
+For more information, please read the article: [PRISM: Multiplexed Profiling of RNA In-Situ through Single-round of Imaging in Three-Dimensional Tissue](https://doi.org/10.1101/2024.06.29.601330).
 
-# Code Preview
+# Code and Pipeline Preview
 
 Code for PRISM consists of the following parts: **probe_designer**, **image_process**, **gene_calling** **cell_segmentation**, **analysis_cell_typing** and **analysis_suncellular**. Data will be processed in this order.
 
-# Data Architecture
+The pipeline can be explained as:
+
+```shell
++-------------+     +------------+     +---------------+     +------------------+     +--------------+     +-----------------+
+| ProbeDesign | --> | Experiment | --> | 2D Data Stack | --> | 2D Image Process | --> | Gene Calling | --> | 2D Cell Segment |
++-------------+     +------------+     +---------------+     +------------------+     +--------------+     +-----------------+
+                        or|                 or|                                                                 |
+                          v                   v                                                                 v
+                      +---------+     +------------------+     +--------------+     +-----------------+    +----------+
+                      | 3D Data | --> | 3D Image Process | --> | Gene Calling | --> | 3D Cell Segment |--> | Analysis |
+                      +---------+     +------------------+     +--------------+     +-----------------+    +----------+
+```
+
+# Data and Architecture
+
+## How to get our data
+
+Stitched raw images are provided in zenodo.org, download from it based on your need.
+
+> 1. [MouseBrain3D](https://zenodo.org/uploads/12673246?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImRhOTQwOGFjLThjMjEtNDBiZi05ZDlmLTM3ZDg1ZGUxYTUyNSIsImRhdGEiOnt9LCJyYW5kb20iOiI1NWJjNDdhZTg3MWQwNzZkNDViYTY5YjUzZTI5ZGNiOSJ9.eAEcp3719F4CaC4xVkriLfW4lFNvNjQXocK44X9P7umPDPsxZPpx9dhKyQ5jh8pJyrPhLmXQxOxenkUlTP5D5w)
+> 2. [HCC](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg)
+> 3. [MouseEmbryo](https://zenodo.org/uploads/12750725?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjNmMGQzNDhjLWYwOTItNDkzMy04MzEyLWNjNzVkNWY2YTc4NyIsImRhdGEiOnt9LCJyYW5kb20iOiI4MDJhYjhkMGRiYmM3NjE0MzJmNTVmZWE2MTNhZTcwZSJ9.T-2r0mRpqdI4cOm0Dl_vYfcpqjObMqVgL4eFWlmL-6eCMdbfVdRzpHZj9Ld9OdRXksJ9dMft5ui09AyJJqaadQ)
+> 4. [Cell typing and Analysis](https://zenodo.org/uploads/12755414?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImVlMGRjMGM1LTZiODEtNGIwOS1hYWFmLTRmZDEwY2JhYjI1MCIsImRhdGEiOnt9LCJyYW5kb20iOiI5ODg5MDM4NWI1YThhYWZkZTI3OGQ2MDUwNDliYjljYiJ9.oBUGRSG7oiGfyJqBZan9a4jdJSi938n2T-HJ2u50xBJX0QbYXzm-sQU--lk2RXIwz6QK9phTQ47dGRM13NcNPQ)
+
+We also provided **HCC2D** unstitched raw images in [PkuNetdisk](https://disk.pku.edu.cn/link/AA83FADBB90EB14BAE8E9DE5889E94AFF9). Download them and decompress the images using the script in the folder.
+
+**For more raw data, contact us: huanglab111@gmail.com.**
+
+## Data architecture
 
 Raw data base directory and processed data output directory can be whatever place you need. But its subdirectory should be like this:
 
@@ -69,20 +97,6 @@ read_dir = src_dir / 'readout'              # multi_channel_readout.py
 seg_dir = src_dir / 'segmented'             # segment2D.py or segment3D.py or expression_matrix.py
 visual_dir = src_dir / 'visualization'      # folder for figures...
 ```
-
-## How to get our data
-
-raw data are provided in [spatial_transcriptome_raw_data](https://github.com/huanglab111/spatial_transcriptome_raw_data/), download from it based on your need.
-
-Some raw data for our articles are uploaded as:
-
-- HCC2D: `spatial_transcriptome_raw_data\20230523_HCC_PRISM_probe_refined`
-
-For higher speed, HCC2D raw images are provided in [PkuNetdisk](https://disk.pku.edu.cn/link/AA83FADBB90EB14BAE8E9DE5889E94AFF9). Download them and decompress the images using the script in the folder.
-
-Processed data are provided in corresponding folders, run `merge_csv.ipynb` to merge too large files(larger than 100MB so that can't be uploaded directly to GitHub).
-
-For more raw data, contact us from huanglab111@gmail.com.
 
 # Pipeline
 
@@ -157,23 +171,29 @@ Edit the directory in python file `image_process/multi_channel_readout.py` as th
 python image_process/multi_channel_readout.py
 ```
 
-**Remark**: This step requires stitched big images generated in the previous step. Signal spots and their intensity can be extract using `image_process/multi_channel_readout.py`. It will generate two csv files named `intensity_all.csv` `intensity_all_deduplicated.csv` in the directory `RUN_IDx_processed/readout/`.
+**Remark**: This step requires stitched big images generated in the previous step. Signal spots and their intensity can be extract using `image_process/multi_channel_readout.py`. It will generate two csv files named `tmp/intensity_all.csv` `intensity_all_deduplicated.csv` in the directory `RUN_IDx_processed/readout/` and copy the .py file to the readout path, too.
 
 ## Image Process 3D
 
 ### 3D tif files as input
 
-If your images are captured by confocal, lightsheet or any other 3D microscopy and you have a registered and stitched grayscale 3d image of each channel in tiff format. Spot extraction can be performed using airlocalize.py with proper parameters.
+If your images are captured by confocal, lightsheet or any other 3D microscopy and you have a registered and stitched grayscale 3d image of each channel in tiff format.
+
+We recommand you using AIRLOCALIZE in matlab to perform spots extraction because its well designed user interface for adjustment of proper parameters. Open MATLAB and run `AIRLOCALIZE.m` in `Image_process/lib/AIRLOCALIZE-MATLAB`. The input files should locate at `path_to_runid/RUN_ID_processed/stitched` and the output path should be `path_to_runid/RUN_ID_processed/readout/tmp`.
+
+Alternatively, spot extraction can be performed using airlocalize.py with proper parameters (set at `Image_process\lib\AIRLOCALIZE\parameters.yaml`).
 
 ```shell
 python image_process/lib/AIRLOCALIZE/airlocalize.py
 ```
 
+After that, intensity decoding and gene calling can be performed using `gene_calling\PRISM3D_intensity_readout_and_gene_calling.ipynb`.
+
 **Remarks**:
 
 - The default image axis is 'XYZ' in airlozalize, if you need other axis order like 'ZXY', please use np.transpose() in previous step or modify the 'self.retrieve_img()' function in `Image_process/lib/AIRLOCALIZE/airlocalize_data.py`.
 
-- AIRLOCALIZE was first written by . It includes predetection signal spots on a feature image(like DoG or LoG or Gaussian smoothed) and fit the accurate location and intensity of spots on original image. Important parameters includes:
+- AIRLOCALIZE includes predetection signal spots on a feature image(like DoG or LoG or Gaussian smoothed) and fit the accurate location and intensity of spots on original image. Important parameters includes:
 
 ```
 # scaling
@@ -205,19 +225,27 @@ to read the intensity from raw images.
 
 ## Gene Calling
 
-Edit the directory in python file `gene_calling/gene_calling_GUI.py`, run the code:
+In this part, we recommand using `gene_calling/gene_calling_GMM.ipynb` when you have `readout/intensity.csv` because spots distribution in color space may differ between tissue types or cameras, but for a quick start, you can also use `gene_calling/gene_calling_GMM.py` by editting the directory in python file `gene_calling/gene_calling_GMM.py` and run the code:
 
 ```shell
-python gene_calling/gene_calling_GUI.py
+python gene_calling/gene_calling_GMM.py
 ```
 
-and follow the indications of each step. The result should be at `read_dir/mapped_genes.csv` as default, and you can choose another directory in the GUI.
+The result should be at `read_dir/mapped_genes.csv` as default.
 
-**Remark**: Gene calling for PRISM is performed by a Gaussian Mixture, mannual select by masks and evaluation of the confidence of each spot. It's expected to run on a GUI because some steps need human knowledge of the experiments like how the chemical environment or FRET would affect the fluorophores. You can also use `gene_calling/PRISM_gene_calling_GMM.ipynb` for customization or use `gene_calling/gene_calling_manual.ipynb` to set the threshold for each gene manually.
+**Remark**:
 
-For more detail, see https://github.com/Tangmc-kawa/PRISM_gene_calling.
+- Gene calling for PRISM is performed by a Gaussian Mixture, mannual select by masks and evaluation of the confidence of each spot. It's expected to run on a GUI because some steps need human knowledge of the experiments like how the chemical environment or FRET would affect the fluorophores.
+
+- You can also use `gene_calling/PRISM_gene_calling_GMM.ipynb` for customization or use `gene_calling/gene_calling_manual.ipynb` to set the threshold for each gene manually.
+
+- 3D gene calling in our article was performed in `gene_calling\PRISM3D_intensity_readout_and_gene_calling.ipynb`.
+
+For more detail, see https://github.com/tangmc0210/PRISM_gene_calling.
 
 ## Cell Segmentation
+
+### Dapi centroids
 
 Edit the directory in python file `cell_segmentation/segment2D.py` or `cell_segmentation/segment3D.py` and run:
 
@@ -233,10 +261,18 @@ python cell_segmentation/segment3D.py
 
 This code will segment cell nucleus according to DAPI channel. A csv file containing the coordinate of nucleus centroid will be generated in`seg_dir` as `centroids_all.csv`.
 
+### Expression matrix
+
 Edit the directory in python file `gene_calling/expression_matrix.py`, and run:
 
 ```shell
-python cell_segmentation/expression_matrix.py
+python cell_segmentation/expression_matrix2D.py
+```
+
+or
+
+```shell
+python cell_segmentation/expression_matrix3D.py
 ```
 
 the expression matrix will be generated in `seg_dir` as `expression_matrix.csv`
@@ -244,7 +280,7 @@ the expression matrix will be generated in `seg_dir` as `expression_matrix.csv`
 **Remarks**:
 
 - `Segmentation3D.py` needs stardist environment as it use trained network to predict the shape and centroid of nucleus in 3D. For more information, see: https://github.com/stardist/stardist.
-- Our strategy to generate expression matris in general assign rna to its nearest centroid of cell nucleus (predicted by dapi) so it requires `centroids.csv(dapi_predict.csv)` of cell nucleus and `mapped_genes.csv` generated in previous steps. If you have other strategies which performed better in your data, you can replace this step with it.
+- Our strategy to generate expression matris in general assign rna to its nearest centroid of cell nucleus (predicted by dapi) so it requires `dapi_centroids.csv` of cell nucleus and `mapped_genes.csv` generated in previous steps. If you have other strategies which performed better in your data, you can replace this step with it.
 
 ---
 
@@ -257,21 +293,21 @@ Cell typing analysis were performed based on the feature of each sample and may 
 ```shell
 dataset_sc_rnaseq
 ├─sc_data_HCC
-│  ├─processed_CNP0000650_CD45-
-│  │      HCC_cell_metadata.txt
-│  │      HCC_cell_metadata.txt.md5
-│  │      HCC_log_tpm_expression_matrix.txt
-│  │      HCC_log_tpm_expression_matrix.txt.gz.md5
+│  ├─processed_CNP0000650_CD45
+│  │    HCC_cell_metadata.txt
+│  │    HCC_cell_metadata.txt.md5
+│  │    HCC_log_tpm_expression_matrix.txt
+│  │    HCC_log_tpm_expression_matrix.txt.gz.md5
 │  │
 │  ├─processed_GSE140228_immune
-│  │      GSE140228_cell_info_Smartseq2.tsv
-│  │      GSE140228_gene_info_Smartseq2.tsv
-│  │      GSE140228_read_counts_Smartseq2.csv
+│  │    GSE140228_cell_info_Smartseq2.tsv
+│  │    GSE140228_gene_info_Smartseq2.tsv
+│  │    GSE140228_read_counts_Smartseq2.csv
 │  │
 │  └─processed_GSE149614
-│         GSE149614_HCC.scRNAseq.S71915.count.txt
-│         GSE149614_HCC.scRNAseq.S71915.normalized.txt
-│         HCC.metadata.txt
+│       GSE149614_HCC.scRNAseq.S71915.count.txt
+│       GSE149614_HCC.scRNAseq.S71915.normalized.txt
+│       HCC.metadata.txt
 │
 └─sc_data_mousebrain
    │  l1_cortex1.loom
@@ -281,10 +317,10 @@ dataset_sc_rnaseq
    │  l1_hypothalamus.loom
    │  l1_thalamus.loom
    └─cache
-           l1_cortex1.h5ad
-           l1_cortex2.h5ad
-           l1_cortex3.h5ad
-           l1_hippocampus.h5ad
+      l1_cortex1.h5ad
+      l1_cortex2.h5ad
+      l1_cortex3.h5ad
+      l1_hippocampus.h5ad
 ```
 
 ## PRISM2D mousebrain
@@ -315,10 +351,12 @@ The analysis of the 3D mouse brain data through spatial transcriptomics and sing
 
 Codes for different tissues are located at:
 
-`dataset/processed/20230704_PRISM3D_mousebrain_CTX_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb`
-`dataset/processed/20230705_PRISM3D_mousebrain_HT_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb`
-`dataset/processed/20230706_PRISM3D_mousebrain_TH_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb`
-`dataset/processed/20230710_PRISM3D_mousebrain_HP_rm_doublet/PRISM3D_cell_typing_and_analysis.ipynb`
+```
+dataset/processed/20230704_PRISM3D_mousebrain_CTX_confocal_processed/PRISM3D_cell_typing_and_analysis.ipynb
+dataset/processed/20230705_PRISM3D_mousebrain_HT_confocal_processed/PRISM3D_cell_typing_and_analysis.ipynb
+dataset/processed/20230706_PRISM3D_mousebrain_TH_confocal_processed/PRISM3D_cell_typing_and_analysis.ipynb
+dataset/processed/20230710_PRISM3D_mousebrain_HP_confocal_processed/PRISM3D_cell_typing_and_analysis.ipynb
+```
 
 ### Data Integration and Harmony
 
