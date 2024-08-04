@@ -15,6 +15,7 @@ scaleMaxRatio: 0.5
 
 # FeatureExtractSettings
 featureExtract: LoG # 'none', 'DoG', 'LoG', 'DoGAndLoG', 'tophat'
+enhance: True
 filterLo: 1.5
 filterHi: 2
 saveSmoothed: True
@@ -26,8 +27,8 @@ maxSpots: 1000000
 minDistBetweenSpots: 5
 threshUnits: legacySD # absolute, SD, legacySD
 threshLevel: 
-    cy3: 3
-    cy5: 3
+    # cy3: 3
+    cy5: 5
     # fam: 3
     # txred: 1
 

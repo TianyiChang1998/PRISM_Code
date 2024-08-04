@@ -5,7 +5,7 @@ from skimage.io import imread, imsave
 from scipy.ndimage import gaussian_laplace
 
 # self defined packages
-from lib.AIRLOCALIZE.image_process import scale_tiff, perform_DoG
+from lib.AIRLOCALIZE.image_process import scale_tiff, perform_DoG, substract_with_scale
 
 class AirLocalizeData:
     def __init__(self):
@@ -100,13 +100,15 @@ class AirLocalizeData:
         mode = params['featureExtract']
         if verbose: print(f"Smoothing {self.curFile}, mode: {mode}...")
         if mode == 'DoG':
-            self.smooth = perform_DoG(self.img, dog_sigma=(params['filterLo'], params['filterHi']))
+            self.smooth = perform_DoG(self.img, dog_sigma=(params['filterLo'], params['filterHi']), enhance=params['enhance'])
             if verbose: print(f"Smoothing {self.curFile} done.")
             if params['saveSmoothed']: imsave(os.path.join(params['saveDirName'], self.curFile.replace('.tif', '_feature.tif')), np.transpose(self.smooth, (2, 1, 0)), check_contrast=False)
 
         elif mode == 'LoG':
             sigma = params['filterLo']
             self.smooth = scale_tiff(-gaussian_laplace(self.img.astype(np.float64), sigma=sigma), verbose=params['verbose'])
+            if params['enhance']: self.smooth = scale_tiff(substract_with_scale(1.5 * self.smooth, np.mean(self.smooth)), verbose=params['verbose'])
+            
             if verbose: print(f"Smoothing {self.curFile} done.")
             if params['saveSmoothed']: imsave(os.path.join(params['saveDirName'], self.curFile.replace('.tif', '_feature.tif')), np.transpose(self.smooth, (2, 1, 0)), check_contrast=False)
                 
