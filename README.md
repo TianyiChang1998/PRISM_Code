@@ -21,6 +21,18 @@ The pipeline can be explained as:
                       +---------+     +------------------+     +--------------+     +-----------------+    +----------+
 ```
 
+# Quick Start
+
+1. Download our data from zenodo [HCC_Data](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg). And put them like the [Data architecture](#data-architecture).
+
+2. Build the environment from this step [Build environment](#environment).
+
+3. Read signals using `multichannel_readout.py` like described in step [image process2d-step3](#-Step-3:-Multi_channel_readout).
+
+4. Call genes using `PRISM_gene_calling_2d_HCC.ipynb` provided in [HCC_Data](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg) at the position `20230523_HCC_PRISM_probe_refined_processed/readout/PRISM_gene_calling_2d_HCC.ipynb`. Example output is located in `20230523_HCC_PRISM_probe_refined_processed/readout/mannual_publication`.
+
+Then you get the result as `mapped_genes.csv` which include the RNA spots and their positions, from images of each fluoroscence channel (`20230523_HCC_PRISM_probe_refined_processed/stitched/*.tif`).
+
 # Data and Architecture
 
 ## How to get our data
