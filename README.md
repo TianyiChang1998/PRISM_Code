@@ -21,17 +21,35 @@ The pipeline can be explained as:
                       +---------+     +------------------+     +--------------+     +-----------------+    +----------+
 ```
 
-# Quick Start
+# Quick Start for PRISM decoding
 
-1. Download our data from zenodo [HCC_Data](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg). And put them like the [Data architecture](#data-architecture).
+## Start from stitched raw images (relatively simple)
+
+1. Download our data from zenodo [MouseEmbryo Data](https://zenodo.org/records/13219763). And put them like the [Data architecture](#data-architecture).
 
 2. Build the environment from this step [Build environment](#environment).
 
-3. Read signals using `multichannel_readout.py` like described in step [image process2d-step3](#-Step-3:-Multi_channel_readout).
+3. Read signals using `multi_channel_readout.py` like described in step [image process2d-step3](#-Step-3:-Multi_channel_readout).
 
-4. Call genes using `PRISM_gene_calling_2d_HCC.ipynb` provided in [HCC_Data](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg) at the position `20230523_HCC_PRISM_probe_refined_processed/readout/PRISM_gene_calling_2d_HCC.ipynb`. Example output is located in `20230523_HCC_PRISM_probe_refined_processed/readout/mannual_publication`.
+4. Call genes (spots classification) using ` PRISM_gene_calling_EMBRYO_30.ipynb` provided in [MouseEmbryo Data](https://zenodo.org/records/13219763) at the position `20221219_PRISM_E13.5_2_3_Three_processed/readout/ PRISM_gene_calling_EMBRYO_30.ipynb`. Example output is located in `20221219_PRISM_E13.5_2_3_Three_processed/readout/Mannual_publication`.
 
-Then you get the result as `mapped_genes.csv` which include the RNA spots and their positions, from images of each fluoroscence channel (`20230523_HCC_PRISM_probe_refined_processed/stitched/*.tif`).
+Then you get the result as `mapped_genes.csv` which include the RNA spots and their positions, from images of each fluoroscence channel (`20221219_PRISM_E13.5_2_3_Three_processed/stitched/*.tif`).
+
+## Start from unstitched raw images
+
+1. Download our data from NetDisk [HCC_raw_images](https://disk.pku.edu.cn/link/AA382E67AE9779469C97814C27892A43DF) (you may need to download the Tiles in the cyc_1_zip for many batched because of the bandwidth limit). UseAnd put them like the [Data architecture](#data-architecture).
+
+2. Build the environment from this step [Build environment](#environment).
+
+3. Image process
+
+   - Stack the z series images using `image_process/scan_fstack.py`, as described in step [image process2D-step1](#step-1-scan_fstack).
+   - Image process using `image_process/image_process_after_stack.py`, as described in step [image process2D-step2](#step-2-image_process).
+   - Read signals using `image_process/multi_channel_readout.py`, as described in step [image process2D-step3](#-Step-3:-Multi_channel_readout).
+
+4. Call genes (spots classification) using `PRISM_gene_calling_2d_HCC.ipynb` provided in [HCC_Data](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg) at the position `20230523_HCC_PRISM_probe_refined_processed/readout/PRISM_gene_calling_2d_HCC.ipynb`. Example output is located in `20230523_HCC_PRISM_probe_refined_processed/readout/mannual_publication`.
+
+Then you get the result as `mapped_genes.csv` which include the RNA spots and their positions, from raw images of each fluoroscence channel (`cyc_*_*/*.tif`).
 
 # Data and Architecture
 
@@ -39,12 +57,12 @@ Then you get the result as `mapped_genes.csv` which include the RNA spots and th
 
 Stitched raw images are provided in zenodo.org, download from it based on your need.
 
-> 1. [MouseEmbryo](https://zenodo.org/uploads/12750725?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjNmMGQzNDhjLWYwOTItNDkzMy04MzEyLWNjNzVkNWY2YTc4NyIsImRhdGEiOnt9LCJyYW5kb20iOiI4MDJhYjhkMGRiYmM3NjE0MzJmNTVmZWE2MTNhZTcwZSJ9.T-2r0mRpqdI4cOm0Dl_vYfcpqjObMqVgL4eFWlmL-6eCMdbfVdRzpHZj9Ld9OdRXksJ9dMft5ui09AyJJqaadQ)
-> 2. [HCC](https://zenodo.org/uploads/12750711?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjU0ZTViMzkxLTAyZmEtNGRjNy1hYzhmLTU1OTYyNGVhYzA3YyIsImRhdGEiOnt9LCJyYW5kb20iOiI5YzJhNWY1ZDZmMjlhMjI3MDJjOTA4Mzk0OTliZDQ5NyJ9.VUDVHe4llxiAC9lyRDTWL6g1YAp4fjFObJ3yfe_Bau0oFkA2C0yFLEiTFCabVUA1qHQy9NP5jPv8n6Dxxiw7rg)
-> 3. [MouseBrain3D](https://zenodo.org/uploads/12673246?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImRhOTQwOGFjLThjMjEtNDBiZi05ZDlmLTM3ZDg1ZGUxYTUyNSIsImRhdGEiOnt9LCJyYW5kb20iOiI1NWJjNDdhZTg3MWQwNzZkNDViYTY5YjUzZTI5ZGNiOSJ9.eAEcp3719F4CaC4xVkriLfW4lFNvNjQXocK44X9P7umPDPsxZPpx9dhKyQ5jh8pJyrPhLmXQxOxenkUlTP5D5w)
-> 4. [Cell typing and Analysis](https://zenodo.org/uploads/12755414?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImVlMGRjMGM1LTZiODEtNGIwOS1hYWFmLTRmZDEwY2JhYjI1MCIsImRhdGEiOnt9LCJyYW5kb20iOiI5ODg5MDM4NWI1YThhYWZkZTI3OGQ2MDUwNDliYjljYiJ9.oBUGRSG7oiGfyJqBZan9a4jdJSi938n2T-HJ2u50xBJX0QbYXzm-sQU--lk2RXIwz6QK9phTQ47dGRM13NcNPQ)
+> 1. [MouseEmbryo](https://zenodo.org/records/13219763)
+> 2. [HCC](https://zenodo.org/records/13208941)
+> 3. [MouseBrain3D](https://zenodo.org/records/12673246)
+> 4. [Cell typing and Analysis](https://zenodo.org/records/12755414)
 
-We also provided **HCC2D** unstitched raw images in [PkuNetdisk](https://disk.pku.edu.cn/link/AA83FADBB90EB14BAE8E9DE5889E94AFF9). Download them and decompress the images using the script in the folder.
+We also provided **HCC2D** unstitched raw images in [PkuNetdisk](https://disk.pku.edu.cn/link/AA83FADBB90EB14BAE8E9DE5889E94AFF9) (you may need to download the Tiles in the cyc_1_zip for many batched because of the bandwidth limit). Download them and decompress the images using the script in the folder.
 
 **For more raw data, contact us: huanglab111@gmail.com.**
 
@@ -127,9 +145,7 @@ The pipeline can be explained as:
 
 ## Environment
 
-This code should be run under `python 3.8`. Later version will bring some environment problems.
-
-To run this code, packages must be installed with command:
+We need python and MATLAB as environment. For matlab, Image Process Toolbox is needed, and for python, We recommend using `Python 3.8` for installing the required packages. The packages listed in the `requirements.txt` file are necessary.
 
 ```shell
 pip install -r requirements.txt
@@ -137,11 +153,17 @@ pip install -r requirements.txt
 
 And MATLAB engine should be installed, according to your local MATLAB version, you can follow [official guideline](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html).
 
-For example, MATLAB R2021b：`python -m pip install matlabengine==9.11.21`
+Additionally, **pip** and **setuptools** need to be at the correct version. For MATLAB R2021b, run:
 
-And **pip setuptools** needs a correct version.
+```
+pip install --upgrade pip setuptools==57.5.0
+```
 
-For MATLAB R2021b: `pip install --upgrade pip setuptools==57.5.0`
+Then, install the MATLAB Engine API for Python with:
+
+```
+python -m pip install matlabengine==9.11.21
+```
 
 ## Probe Design
 
