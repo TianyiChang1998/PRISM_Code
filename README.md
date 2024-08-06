@@ -25,13 +25,13 @@ The pipeline can be explained as:
 
 ## Start from stitched raw images (relatively simple)
 
-1. Download our data from zenodo [MouseEmbryo Data](https://zenodo.org/uploads/12750725?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjNmMGQzNDhjLWYwOTItNDkzMy04MzEyLWNjNzVkNWY2YTc4NyIsImRhdGEiOnt9LCJyYW5kb20iOiI4MDJhYjhkMGRiYmM3NjE0MzJmNTVmZWE2MTNhZTcwZSJ9.T-2r0mRpqdI4cOm0Dl_vYfcpqjObMqVgL4eFWlmL-6eCMdbfVdRzpHZj9Ld9OdRXksJ9dMft5ui09AyJJqaadQ). And put them like the [Data architecture](#data-architecture).
+1. Download our data from zenodo [MouseEmbryo Data](https://zenodo.org/records/13219763). And put them like the [Data architecture](#data-architecture).
 
 2. Build the environment from this step [Build environment](#environment).
 
 3. Read signals using `multi_channel_readout.py` like described in step [image process2d-step3](#-Step-3:-Multi_channel_readout).
 
-4. Call genes (spots classification) using ` PRISM_gene_calling_EMBRYO_30.ipynb` provided in [MouseEmbryo Data](https://zenodo.org/uploads/12750725?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjNmMGQzNDhjLWYwOTItNDkzMy04MzEyLWNjNzVkNWY2YTc4NyIsImRhdGEiOnt9LCJyYW5kb20iOiI4MDJhYjhkMGRiYmM3NjE0MzJmNTVmZWE2MTNhZTcwZSJ9.T-2r0mRpqdI4cOm0Dl_vYfcpqjObMqVgL4eFWlmL-6eCMdbfVdRzpHZj9Ld9OdRXksJ9dMft5ui09AyJJqaadQ) at the position `20221219_PRISM_E13.5_2_3_Three_processed/readout/ PRISM_gene_calling_EMBRYO_30.ipynb`. Example output is located in `20221219_PRISM_E13.5_2_3_Three_processed/readout/Mannual_publication`.
+4. Call genes (spots classification) using ` PRISM_gene_calling_EMBRYO_30.ipynb` provided in [MouseEmbryo Data](https://zenodo.org/records/13219763) at the position `20221219_PRISM_E13.5_2_3_Three_processed/readout/ PRISM_gene_calling_EMBRYO_30.ipynb`. Example output is located in `20221219_PRISM_E13.5_2_3_Three_processed/readout/Mannual_publication`.
 
 Then you get the result as `mapped_genes.csv` which include the RNA spots and their positions, from images of each fluoroscence channel (`20221219_PRISM_E13.5_2_3_Three_processed/stitched/*.tif`).
 
